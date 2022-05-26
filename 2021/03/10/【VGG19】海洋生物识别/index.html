@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xinkai-tang.github.io/img/cover_img.webp">
 <meta property="article:published_time" content="2021-03-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-20T16:49:57.480Z">
+<meta property="article:modified_time" content="2022-05-26T07:40:41.473Z">
 <meta property="article:author" content="Kevin Tang">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="计算机视觉">
@@ -54,7 +54,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-05-21 00:49:57'
+  postUpdate: '2022-05-26 15:40:41'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -148,19 +148,16 @@
 <h2 id="1-问题导入-9">1. 问题导入</h2>
 <p>图像分类是根据图像的语义信息将不同类别图像区分开来，是计算机视觉中重要的基本问题。本实践使用卷积神经网络VGG19模型构建深度学习模型，自动提取高质量的特征，来解决海洋鱼类识别的问题。</p>
 <h2 id="2-数据集简介-7">2. 数据集简介</h2>
-<p>本次实验使用的是台湾电力公司、台湾海洋研究所和垦丁国家公园在2010年10月1日至2013年9月30日期间，在中国台湾南湾海峡、兰屿岛和胡比湖的水下观景台收集的鱼类图像数据集。<br>
-该数据集包括23类鱼种，共27370张鱼的图像，本次实验将取其中的90%作为训练集，剩下的10%作为测试集。<br>
-<img src="https://img-blog.csdnimg.cn/5b00468b44174c78b95f3c3bc8ca6daf.png#pic_center" alt=""></p>
+<p>本次实验使用的是台湾电力公司、台湾海洋研究所和垦丁国家公园在2010年10月1日至2013年9月30日期间，在中国台湾南湾海峡、兰屿岛和胡比湖的水下观景台收集的鱼类图像数据集。该数据集包括23类鱼种，共27370张鱼的图像，本次实验将取其中的90%作为训练集，剩下的10%作为测试集。</p>
+<p><img src="https://img-blog.csdnimg.cn/5b00468b44174c78b95f3c3bc8ca6daf.png#pic_center" alt=""></p>
 <blockquote>
 <p>这是数据集的下载链接：<a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/datasetdetail/14492">Fish4Knowledge 23种鱼类数据集 - AI Studio</a></p>
 </blockquote>
 <h2 id="3-VGG模型-2">3. VGG模型</h2>
-<ul>
-<li>VGG 是由 Simonyan 和 Zisserman 在论文 “<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1409.1556">Very Deep Convolutional Networks for Large Scale Image Recognition</a>” 中提出卷积神经网络模型，其名称来源于作者所在的牛津大学视觉几何组 (Visual Geometry Group) 的缩写。</li>
-<li>VGG 中根据卷积核大小和卷积层数目的不同，可分为 A、A-LRN、B、C、D、E 共6个配置 (ConvNet Configuration)，其中以 D 和 E 两种配置较为常用，分别称为 VGG16 和 VGG19。本实验使用的是VGG19模型（模型结构如下图 type E 所示）。<br>
-<img src="https://img-blog.csdnimg.cn/img_convert/62b9772f507d42b9d9170eecd7f32735.png#pic_center" alt=""></li>
-</ul>
-<hr/>
+<p><code>VGG</code>是由 Simonyan、Zisserman（2014）在论文 “<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1409.1556">Very Deep Convolutional Networks for Large Scale Image Recognition</a>” 中提出卷积神经网络模型，其名称来源于作者所在的牛津大学视觉几何组（Visual Geometry Group）的缩写。</p>
+<p><code>VGG</code>中根据卷积核大小和卷积层数目的不同，可分为 A、A-LRN、B、C、D、E 共6个配置 (ConvNet Configuration)，其中以 D 和 E 两种配置较为常用，分别称为<code>VGG16</code>和<code>VGG19</code>。本实验使用的是<code>VGG19</code>模型（模型结构如下图 type E 所示）。</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/62b9772f507d42b9d9170eecd7f32735.png#pic_center" alt=""></p>
+<hr>
 <h1>二、实验步骤</h1>
 <p><img src="https://img-blog.csdnimg.cn/20210208110405937.png#pic_center" alt=""></p>
 <h2 id="0-前期准备-6">0. 前期准备</h2>
@@ -233,7 +230,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model.<span class="built_in">eval</span>()                 <span class="comment"># 开启评估模式</span></span><br><span class="line">model.set_state_dict(</span><br><span class="line">    paddle.load(MODEL_PATH)</span><br><span class="line">)   <span class="comment"># 载入预训练模型参数</span></span><br><span class="line"></span><br><span class="line">result = model(infer_img)</span><br><span class="line">infer_lab = lab_dict[ <span class="built_in">str</span>(np.argmax(result)) ]  <span class="comment"># 获取推理结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;真实标签：%s，预测结果：%s&quot;</span> % (truth_lab, infer_lab))</span><br></pre></td></tr></table></figure>
 <p>模型预测的结果如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">真实标签：Dascyllus reticulatus，预测结果：Dascyllus reticulatus</span><br></pre></td></tr></table></figure>
-<hr/>
+<hr>
 <blockquote>
 <h1>写在最后</h1>
 <ul>

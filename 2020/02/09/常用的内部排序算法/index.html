@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xinkai-tang.github.io/img/cover_img.webp">
 <meta property="article:published_time" content="2020-02-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-16T09:47:41.746Z">
+<meta property="article:modified_time" content="2022-05-26T02:43:36.571Z">
 <meta property="article:author" content="Kevin Tang">
 <meta property="article:tag" content="算法分析">
 <meta property="article:tag" content="python">
@@ -54,7 +54,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-05-16 17:47:41'
+  postUpdate: '2022-05-26 10:43:36'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -178,7 +178,7 @@
 <p><img src="https://img-blog.csdnimg.cn/20210209160011642.png#pic_center" alt=""></p>
 <h2 id="3-算法复杂度">3. 算法复杂度</h2>
 <p><img src="https://img-blog.csdnimg.cn/60096e47582d4605bf5e10fb66ecf35b.png#pic_center" alt=""></p>
-<hr/>
+<hr>
 <h1>二、算法实现</h1>
 <blockquote>
 <p>注：本文使用<strong>Python</strong>来实现以下几种排序算法。其中，调用random.randint()方法的目的是产生初始随机序列以供排序。</p>
@@ -338,7 +338,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">insertionSort</span>(<span class="params">array</span>):   <span class="comment"># 直接插入排序</span></span><br><span class="line">    <span class="keyword">for</span> no <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(array)):</span><br><span class="line">        cur = no - <span class="number">1</span>        <span class="comment"># 指向当前插入点</span></span><br><span class="line">        num = array[no]     <span class="comment"># 当前待插入的元素</span></span><br><span class="line">        <span class="keyword">while</span> cur &gt;= <span class="number">0</span> <span class="keyword">and</span> array[cur] &gt; num:</span><br><span class="line">            array[cur+<span class="number">1</span>] = array[cur]</span><br><span class="line">            cur -= <span class="number">1</span></span><br><span class="line">        array[cur+<span class="number">1</span>] = num</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bucketSort</span>(<span class="params">numList</span>):</span><br><span class="line">    <span class="comment"># (1) 设置桶的数量（默认为5）：</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(numList) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    bucketNum = <span class="number">5</span> <span class="keyword">if</span> <span class="built_in">len</span>(numList) &gt; <span class="number">5</span> <span class="keyword">else</span> <span class="built_in">len</span>(numList)</span><br><span class="line">    bucketList = [[] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(bucketNum)]</span><br><span class="line">    <span class="comment"># (2) 找出数组numList中的最值，设置好桶内间隔：</span></span><br><span class="line">    maxium, minium = <span class="built_in">max</span>(numList), <span class="built_in">min</span>(numList)</span><br><span class="line">    gap = (maxium - minium)//bucketNum + <span class="number">1</span>  <span class="comment"># 桶内数字的间隔</span></span><br><span class="line">    <span class="comment"># (3) 将数字装入桶中：</span></span><br><span class="line">    <span class="keyword">for</span> num <span class="keyword">in</span> numList:</span><br><span class="line">        index = (num - minium)//gap   <span class="comment"># 获取num所属桶的编号</span></span><br><span class="line">        bucketList[index].append(num)</span><br><span class="line">    <span class="comment"># (4) 为每个桶里面的数字进行排序：</span></span><br><span class="line">    cur = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> bucket <span class="keyword">in</span> bucketList:</span><br><span class="line">        bucket = insertionSort(bucket)  <span class="comment"># 插入排序</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> bucket:</span><br><span class="line">            numList[cur] = num</span><br><span class="line">            cur += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> numList</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    numList = [randint(-<span class="number">100</span>, <span class="number">100</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)]</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;桶排序前：&quot;</span>, numList)</span><br><span class="line">    numList = bucketSort(numList)   <span class="comment"># 桶排序</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;桶排序后：&quot;</span>, numList)</span><br></pre></td></tr></table></figure>
 <p>实验结果：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">桶排序前： [54, 62, 82, 96, -61, -82, -15, -55, 35, -49]</span><br><span class="line">桶排序后： [-82, -61, -55, -49, -15, 35, 54, 62, 82, 96]</span><br></pre></td></tr></table></figure>
-<hr/>
+<hr>
 <h1>写在最后</h1>
 <blockquote>
 <ul>

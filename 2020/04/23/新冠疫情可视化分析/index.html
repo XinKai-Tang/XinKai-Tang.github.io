@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xinkai-tang.github.io/img/cover_img.webp">
 <meta property="article:published_time" content="2020-04-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-16T16:46:24.066Z">
+<meta property="article:modified_time" content="2022-05-26T02:43:45.320Z">
 <meta property="article:author" content="Kevin Tang">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="数据可视化">
@@ -54,7 +54,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-05-17 00:46:24'
+  postUpdate: '2022-05-26 10:43:45'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -166,7 +166,7 @@
 <img src="https://img-blog.csdnimg.cn/7c381070fa4c4aad9c467735d8fb0816.png#pic_center" alt=""></li>
 </ul>
 </blockquote>
-<hr/>
+<hr>
 <h1>二、实验步骤</h1>
 <h2 id="1-爬取疫情数据">1. 爬取疫情数据</h2>
 <ul>
@@ -192,7 +192,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> pyecharts.charts <span class="keyword">import</span> Pie</span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> options <span class="keyword">as</span> opts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">createPieGraph</span>(<span class="params">data, title</span>):</span><br><span class="line">    pie = Pie(</span><br><span class="line">        init_opts=opts.InitOpts(width=<span class="string">&#x27;900px&#x27;</span>, height=<span class="string">&#x27;600px&#x27;</span>)  <span class="comment"># 设置图像的长和宽</span></span><br><span class="line">    )    <span class="comment"># 创建Pie对象</span></span><br><span class="line">    data_pair = [<span class="built_in">list</span>(z) <span class="keyword">for</span> z <span class="keyword">in</span> data.items()]</span><br><span class="line">    data_pair.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>], reverse=<span class="literal">True</span>)</span><br><span class="line">    pie.add(title, data_pair,</span><br><span class="line">            center=[<span class="string">&quot;45%&quot;</span>, <span class="string">&quot;65%&quot;</span>],  <span class="comment"># 饼图圆心坐标：前者相对于宽度，后者相对于高度</span></span><br><span class="line">            radius=<span class="string">&quot;180&quot;</span>)           <span class="comment"># 饼图的半径</span></span><br><span class="line">    pie.set_series_opts(</span><br><span class="line">        label_opts=opts.LabelOpts(formatter=<span class="string">&quot;&#123;b&#125;: &#123;c&#125;&quot;</span>,   <span class="comment"># 标签格式</span></span><br><span class="line">                                  font_size=<span class="number">15</span>)           <span class="comment"># 字体大小</span></span><br><span class="line">    )   <span class="comment"># 系列配置项</span></span><br><span class="line">    pie.set_global_opts(</span><br><span class="line">        title_opts=opts.TitleOpts(title=<span class="string">&quot;国内%s分布饼图&quot;</span> % title,</span><br><span class="line">                                  subtitle=<span class="string">&quot;更新时间：%s&quot;</span> % today),   <span class="comment"># 设置标题</span></span><br><span class="line">        legend_opts=opts.LegendOpts(pos_top=<span class="string">&quot;20%&quot;</span>,       <span class="comment"># 图例离顶部的距离</span></span><br><span class="line">                                    pos_left=<span class="string">&quot;80%&quot;</span>,      <span class="comment"># 图例离左侧的距离</span></span><br><span class="line">                                    orient=<span class="string">&quot;vertical&quot;</span>)   <span class="comment"># 图例的布局朝向</span></span><br><span class="line">    )   <span class="comment"># 全局配置项</span></span><br><span class="line">    pie.render(<span class="string">&quot;data/国内%s分布饼图.html&quot;</span> % title)   <span class="comment"># 保存图像至文件</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ------ 1. 读取原始数据文件 ------</span></span><br><span class="line">today = datetime.date.today().strftime(<span class="string">&#x27;%Y-%m-%d&#x27;</span>)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;data/%s.json&quot;</span> % today, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    json_list = json.loads(f.read())</span><br><span class="line"></span><br><span class="line"><span class="comment"># ------ 2. 提取全国确诊数据 ------</span></span><br><span class="line">cn_confirm = &#123;<span class="string">&quot;count&quot;</span>: &#123;&#125;, <span class="string">&quot;current&quot;</span>: &#123;&#125;&#125;   <span class="comment"># count：累计确诊；current：现存确诊</span></span><br><span class="line"><span class="keyword">for</span> province <span class="keyword">in</span> json_array:</span><br><span class="line">    name = province[<span class="string">&quot;provinceShortName&quot;</span>]    <span class="comment"># 省级行政区名</span></span><br><span class="line">    cn_confirm[<span class="string">&quot;count&quot;</span>][name] = province[<span class="string">&quot;confirmedCount&quot;</span>]</span><br><span class="line">    <span class="comment"># cn_confirm[&quot;current&quot;][name] = province[&quot;currentConfirmedCount&quot;]</span></span><br><span class="line"><span class="comment"># print(&quot;累计确诊：&quot;, cn_confirm[&quot;count&quot;])</span></span><br><span class="line"><span class="comment"># print(&quot;现存确诊：&quot;, cn_confirm[&quot;current&quot;])</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ------ 3. 绘制疫情分布饼图 ------</span></span><br><span class="line">createPieGraph(cn_confirm[<span class="string">&quot;count&quot;</span>], <span class="string">&quot;累计确诊&quot;</span>)</span><br><span class="line"><span class="comment"># createPieGraph(cn_confirm[&quot;current&quot;], &quot;现存确诊&quot;)</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/21d9b46741a54ec48802b3a5c53d679d.jpeg#pic_center" alt=""></p>
-<hr/>
+<hr>
 <blockquote>
 <h1>写在最后</h1>
 <ul>

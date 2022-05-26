@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xinkai-tang.github.io/img/cover_img.webp">
 <meta property="article:published_time" content="2021-02-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-05-19T15:06:00.705Z">
+<meta property="article:modified_time" content="2022-05-26T07:41:56.265Z">
 <meta property="article:author" content="Kevin Tang">
 <meta property="article:tag" content="深度学习">
 <meta property="article:tag" content="计算机视觉">
@@ -54,7 +54,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-05-19 23:06:00'
+  postUpdate: '2022-05-26 15:41:56'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -153,10 +153,9 @@
 <p>这是数据集的下载链接：<a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/datasetdetail/51418">手势识别数据集 - AI Studio</a></p>
 </blockquote>
 <h2 id="3-AlexNet模型">3. AlexNet模型</h2>
-<p>本实验使用的模型是经典卷积神经网络模型——AlexNet。<br>
-AlexNet是2012年ImageNet竞赛冠军获得者Hinton和他的学生Alex Krizhevsky设计的，也是在那年之后，更多的更深的神经网络被提出，卷积神经网络乃至深度学习重新引起了广泛的关注。<br>
-<img src="https://img-blog.csdnimg.cn/38e8240adf0c474eaaaf5a3c692f2604.png#pic_center" alt=""></p>
-<hr/>
+<p>AlexNet是2012年ImageNet竞赛冠军获得者Hinton和他的学生Alex Krizhevsky设计的，也是在那年之后，更多的更深的神经网络被提出，卷积神经网络乃至深度学习重新引起了广泛的关注。</p>
+<p><img src="https://img-blog.csdnimg.cn/38e8240adf0c474eaaaf5a3c692f2604.png#pic_center" alt=""></p>
+<hr>
 <h1>二、实验步骤</h1>
 <p><img src="https://img-blog.csdnimg.cn/20210208110405937.png#pic_center" alt=""></p>
 <h2 id="0-前期准备">0. 前期准备</h2>
@@ -225,7 +224,7 @@ AlexNet是2012年ImageNet竞赛冠军获得者Hinton和他的学生Alex Krizhevs
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">model.<span class="built_in">eval</span>()                 <span class="comment"># 开启评估模式</span></span><br><span class="line">model.set_state_dict(</span><br><span class="line">    paddle.load(MODEL_PATH)</span><br><span class="line">)   <span class="comment"># 载入预训练模型参数</span></span><br><span class="line"></span><br><span class="line">result = model(infer_img)</span><br><span class="line">infer_lab = np.argmax(result)   <span class="comment"># 返回数组result中的最大值的索引值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;真实标签：%d，预测结果：%d&quot;</span> % (truth_lab, infer_lab))</span><br></pre></td></tr></table></figure>
 <p>模型预测结果如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">该图片的真实标签为7，模型预测结果为7</span><br></pre></td></tr></table></figure>
-<hr/>
+<hr>
 <blockquote>
 <h1>写在最后</h1>
 <ul>
