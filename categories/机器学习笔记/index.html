@@ -188,37 +188,7 @@
   isHighlightShrink: false,
   isToc: false,
   pageType: 'category'
-}</script><link rel="stylesheet" href="/css/widgets.css"><link rel="stylesheet" href="/css/third-party/APlayer.min.css"><meta name="generator" content="Hexo 8.1.2"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>(()=>{
-  const $loadingBox = document.getElementById('loading-box')
-  const $body = document.body
-  const preloader = {
-    endLoading: () => {
-      if ($loadingBox.classList.contains('loaded')) return
-      $body.style.overflow = ''
-      $loadingBox.classList.add('loaded')
-    },
-    initLoading: () => {
-      $body.style.overflow = 'hidden'
-      $loadingBox.classList.remove('loaded')
-    }
-  }
-
-  preloader.initLoading()
-
-  if (document.readyState === 'complete') {
-    preloader.endLoading()
-  } else {
-    window.addEventListener('load', preloader.endLoading)
-    document.addEventListener('DOMContentLoaded', preloader.endLoading)
-    // Add timeout protection: force end after 7 seconds
-    setTimeout(preloader.endLoading, 7000)
-  }
-
-  if (true) {
-    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
-    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
-  }
-})()</script><script>(function() {  
+}</script><link rel="stylesheet" href="/css/widgets.css"><link rel="stylesheet" href="/css/third-party/APlayer.min.css"><meta name="generator" content="Hexo 8.1.2"></head><body><script>(function() {  
   const waveDuration = 2500;  
   let waveStartTime = sessionStorage.getItem('oceanWaveStartTime');  
   if (!waveStartTime) {  
